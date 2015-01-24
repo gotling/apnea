@@ -1,0 +1,5 @@
+-e git+git@github.com:5monkeys/fabric.git@develop#egg=fabric
+Jinja2==2.7.3
+PyYAML==3.11
+-e git+git@github.com:5monkeys/blues.git@master#egg=blues
+-e git+git@github.com:5monkeys/refabric.git@develop#egg=refabric

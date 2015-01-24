@@ -1,0 +1,89 @@
+user: gotling
+
+# Global settings
+settings:
+  project: apnea
+
+  app:
+    git_url: git@github.com:GotlingSystem/apnea.git
+    system_dependencies:
+      - joe
+      - openntpd
+      - htop
+      - iftop
+      - iotop
+      - build-essential
+      - coreutils
+      - screen
+      - sendmail
+    web:
+      provider: uwsgi
+      ssl: true
+      socket: /run/uwsgi/apnea.sock
+      domain: $(shell_env.SITE_HOST)
+      workers: 4
+      module: apnea.wsgi
+
+  django:
+    manage: ../manage.py
+
+  uwsgi:
+    version: 2.0.9
+
+  postgres:
+    version: 9.3
+    schemas:
+      flow_search:
+        user: apnea
+        password: "$(shell_env.DATABASE_PASSWORD)"
+    pgtune:
+      max_connections: "202"
+
+  nginx:
+    sites:
+      - apnea
+    listen: spdy
+
+blueprints:
+  - blues.uwsgi
+  - blues.app
+  - blues.memcached
+  - blues.django
+  - blues.nginx
+  - blues.postgres
+
+# Global environment variables
+shell_env:
+  LANG: en_US.UTF-8
+  LC_ALL: en_US.UTF-8
+  LC_LANG: en_US.UTF-8
+  DEBUG: "False"  # Need string due to fabric shell env escaping
+
+# Domain specific states
+states:
+  dev:
+    roledefs:
+      site:
+        hosts:
+          - apnea
+        shell_env:
+          DEBUG: "True"
+          DJANGO_SETTINGS_MODULE: apnea.settings.dev
+          DATABASE_SCHEMA_NAME: apnea
+          DATABASE_USER: apnea
+          DATABASE_PASSWORD: "0fsaPYFJatlLUXqTSdi3"
+          DATABASE_MASTER_HOST: 127.0.0.1
+          DATABASE_CONN_MAX_AGE: "50"
+          MEMCACHED_SERVERS: 127.0.0.1:11211
+          RAVEN_DSN: https://:@app.getsentry.com/
+          DJANGO_SECRET: "bqde!y-nj-9iy-^zwt==p%a!s00#3g&+)*#r_$_43wen5-3&n7"
+          MEDIA_ROOT: /srv/www/apnea/media/
+          STATIC_ROOT: /srv/www/apnea/static/
+          SITE_HOST: "apnea.gosy.se"
+        settings:
+          app:
+            git_branch: master
+          nginx:
+            domain_1: apnea.gosy.se
+            ssl_certificate_domain_1: gosy.se.crt
+            ssl_certificate_key_domain_1: gose.se.key
