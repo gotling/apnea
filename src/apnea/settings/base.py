@@ -225,6 +225,7 @@ THIRD_PARTY_APPS = (
     #'raven.contrib.django.raven_compat',
     #'requests',
     #'compressor',
+    'taggit',
 )
 
 # Apps specific for this project go here.
