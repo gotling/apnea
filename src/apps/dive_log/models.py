@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.db import models
 from django.utils.translation import ugettext as _
+from discipline.models import Discipline
+
 
 class Session(models.Model):
     #pool = models.ForeignKey(Pool)
@@ -19,9 +21,9 @@ class Session(models.Model):
 
 class Dive(models.Model):
     session = models.ForeignKey(Session)
-    #discipline = models.ForeignKey(Discipline)
+    discipline = models.ForeignKey(Discipline, null=True, blank=True)
     start = models.TimeField(null=True, blank=True)
-    rest_duration = models.IntegerField(_(u'Vila innan'), help_text=_(u'Sekunder'), null=True)
+    rest_duration = models.IntegerField(_(u'Vila innan'), help_text=_(u'Sekunder'), null=True, blank=True)
     dive_duration = models.IntegerField(_(u'Dyktid'), help_text=_(u'Sekunder'), null=True, blank=True)
     distance = models.IntegerField(verbose_name=_(u'Distans'), null=True)
     temperature = models.IntegerField(verbose_name=_(u'Temperatur'), null=True, blank=True)
