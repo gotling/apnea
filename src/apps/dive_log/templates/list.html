@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sv-SE">
+	<head>
+		<title>Dyklog - Lista</title>
+		<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href='//fonts.googleapis.com/css?family=Raleway:400,500' rel='stylesheet' type='text/css'>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+      <div class="container-fluid">
+        <h1>Dyklog</h1>
+      {% for session in sessions %}
+        <h2>{{ session.date }} {{ session.time }}</h2>
+        <p>{{ session.comment }}</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Discipline</th>
+              <th>Start</th>
+              <th>Vila</th>
+              <th>Dyktid</th>
+              <th>Distans</th>
+              <th>Kommentar</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for dive in session.dive_set.all %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <th>{{ dive.discipline.abbreviation }}</th>
+              <td>{{ dive.start }}</td>
+              <td>{{ dive.rest_duration }}</td>
+              <td>{{ dive.dive_duration }}</td>
+              <td>{{ dive.distance }}</td>
+              <td>{{ dive.comment }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+      </div>
+    </body>
+</html>
