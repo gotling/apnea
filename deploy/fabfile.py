@@ -6,12 +6,14 @@ refabric.bootstrap()
 
 @task
 def setup():
-    from blues import app, django, postgresql, memcached, uwsgi, nginx
+    """
+    Full application setup from scratch
+    """
+    from blues import app, postgresql, memcached, uwsgi, nginx
 
     postgresql.setup()
     memcached.setup()
     app.setup()
-    django.setup()
     uwsgi.setup()
     nginx.setup()
 
