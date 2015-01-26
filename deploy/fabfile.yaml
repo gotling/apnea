@@ -33,7 +33,7 @@ settings:
   postgres:
     version: 9.3
     schemas:
-      flow_search:
+      apnea:
         user: apnea
         password: "$(shell_env.DATABASE_PASSWORD)"
     pgtune:
