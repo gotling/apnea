@@ -7,18 +7,20 @@ class Omer(object):
     def __init__(self, file_name):
         self.file_name = file_name
         self.content = {}
+        self.raw = {}
         self.summary = {}
         self.read_file(file_name)
         self.parse_summary()
 
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', encoding='utf16') as f:
-            self.content = f.readlines()
+            self.raw['content'] = f.readlines()
 
     def parse_summary(self):
         pattern = re.compile(ur'\"([^"]+?)\"', re.UNICODE)
+        summary = {}
 
-        for line in self.content:
+        for line in self.raw['content']:
             m = pattern.findall(line.strip())
 
             if m and len(m) == 2:
@@ -29,6 +31,8 @@ class Omer(object):
                     break
 
                 if value.isdigit():
-                    self.summary[str(key)] = int(value)
+                    summary[str(key)] = int(value)
                 else:
-                    self.summary[str(key)] = value
+                    summary[str(key)] = value
+
+        self.raw['summary'] = summary

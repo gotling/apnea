@@ -20,6 +20,6 @@ class TestOmer(TestCase):
     def test_summary(self):
         log = self.log
         #print log.summary
-        self.assertEqual(u'2015-01-30', log.summary[u'Date'])
-        self.assertEqual(15, log.summary[u'No. of dives'])
+        self.assertEqual(u'2015-01-30', log.raw['summary'][u'Date'])
+        self.assertEqual(15, log.raw['summary'][u'No. of dives'])
         #self.assertEqual(time.strptime("01:17:59"), log.summary.time.total)
