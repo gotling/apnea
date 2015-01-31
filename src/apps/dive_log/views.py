@@ -13,6 +13,7 @@ def list_sessions(request):
 
 def details(request, dive_id):
     dive = Dive.objects.get(id=dive_id)
+
     context = {
         'dive': dive
     }
