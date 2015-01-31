@@ -52,6 +52,7 @@ class DataPoint(models.Model):
     class Meta:
         verbose_name = _(u'Datapunkt')
         verbose_name_plural = _(u'Datapunkter')
+        ordering = ['second']
 
     def __unicode__(self):
         return u'{} - {} m - {} C - {} slag/minut'
