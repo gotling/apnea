@@ -34,6 +34,7 @@ class Dive(models.Model):
     class Meta:
         verbose_name = _(u'Dyk')
         verbose_name_plural = _(u'Dyk')
+        ordering = ['id']
 
     def __unicode__(self):
         if self.discipline:
