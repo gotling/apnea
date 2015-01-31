@@ -22,6 +22,20 @@ summary_key_conversion = {
 }
 
 
+dive_key_conversion = {
+    "Dive": 'dive',
+    "Total time": 'time.total',
+    "Dive time": 'time.dive',
+    "Surface time": 'time.surface',
+    "Maximum depth": 'depth.max',
+    "Maximum temperature": 'temperature.max',
+    "Minimum temperature ": 'temperature.min',
+    "Total calorie ": 'calorie.total',
+    "Minimum heart rate": 'heart_rate.min',
+    "Maximum heart rate": 'heart_rate.max',
+    'data_points': 'data_points'
+}
+
 def pretty_temperature(dictionary, key, value):
     value, sign = value.split()
 
@@ -59,12 +73,14 @@ class Omer(object):
         self.file_name = file_name
         self.raw = {}
         self.summary = {}
+        self.dives = {}
         self.read_file(file_name)
 
         self.parse_summary()
         self.pretty_summary()
 
         self.parse_dives()
+        self.pretty_dives()
 
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', encoding='utf16') as f:
@@ -122,11 +138,9 @@ class Omer(object):
             if number < dive_count:
                 stop = self.raw['content'].index(u'"Dive"\t"{}"\n'.format(number + 1))
             else:
-                 stop = None
+                stop = None
 
             raw_dives.append(self.raw['content'][start:stop])
-
-        print len(raw_dives)
 
         dives = []
         for raw_dive in raw_dives:
@@ -156,7 +170,30 @@ class Omer(object):
 
                         data_points.append({'item': item, 'depth': depth, 'temp': temp, 'hr': hr})
 
-            dive['data-points'] = data_points
+            dive['data_points'] = data_points
             dives.append(dive)
 
         self.raw['dives'] = dives
+
+    def pretty_dives(self):
+        dives = []
+        for raw_dive in self.raw['dives']:
+            dive = {}
+            for k in raw_dive:
+                key = dive_key_conversion.get(k)
+                if key:
+                    value = raw_dive[k]
+                    if key.startswith('temperature'):
+                        key, value = pretty_temperature(dive, key, value)
+                    elif key.startswith('depth'):
+                        key, value = pretty_distance(dive, key, value)
+                    elif key.startswith('calorie'):
+                        key, value = pretty_calorie(dive, key, value)
+
+                    put(dive, key, value)
+                else:
+                    print "Warning: No key conversion for '%s'" % k
+
+            dives.append(dive)
+
+        self.dives = dives

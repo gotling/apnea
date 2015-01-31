@@ -39,4 +39,7 @@ class TestOmer(TestCase):
 
         self.assertTrue(log.raw['dives'])
         self.assertEqual(1, log.raw['dives'][0][u'Dive'])
-        self.assertEqual("0.8", log.raw['dives'][0][u'data-points'][0]['depth'])
+        self.assertEqual("0.8", log.raw['dives'][0][u'data_points'][0]['depth'])
+
+        self.assertEqual(73, get(log.dives[0], 'heart_rate.min'))
+        self.assertEqual("1.7", get(log.dives[0], 'data_points')[12-1]['depth'])
