@@ -42,7 +42,7 @@
               <td>{{ dive.dive_duration }}</td>
               <td>{{ dive.distance }}</td>
               <td>{{ dive.comment }}{{ dive.data_points }}</td>
-              <td><a data-toggle="modal" class="modal-link" href="details/{{ dive.id }}" data-target="#main-modal">Detaljer</a></td>
+              <td>{% if dive.datapoint_set.count > 0 %}<a data-toggle="modal" class="modal-link" href="details/{{ dive.id }}" data-target="#main-modal">Detaljer</a>{% endif %}</td>
             </tr>
           {% endfor %}
           </tbody>
