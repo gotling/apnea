@@ -191,7 +191,7 @@ class Omer(object):
     def pretty_dives(self):
         dives = []
         for raw_dive in self.raw['dives']:
-            dive = {'summary': {}}
+            summary = {}
             for k in raw_dive['summary']:
                 key = dive_key_conversion.get(k)
                 if key:
@@ -203,12 +203,11 @@ class Omer(object):
                     elif key.startswith('calorie'):
                         key, value = pretty_calorie(key, value)
 
-                    put(dive['summary'], key, value)
+                    put(summary, key, value)
                 else:
                     print "Warning: No key conversion for '%s'" % k
 
-            dive['data_points'] = raw_dive['data_points']
-            dives.append(dive)
+            dives.append({'summary': summary, 'data_points': raw_dive['data_points']})
 
         self.dives = dives
         self.content['dives'] = dives
