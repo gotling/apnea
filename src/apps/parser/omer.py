@@ -1,4 +1,6 @@
 # coding: utf-8
+import copy
+import json
 import re
 import codecs
 
@@ -21,7 +23,6 @@ summary_key_conversion = {
     "Maximum heart rate": 'heart_rate.max'
 }
 
-
 dive_key_conversion = {
     "Dive": 'dive',
     "Total time": 'time.total',
@@ -35,6 +36,7 @@ dive_key_conversion = {
     "Maximum heart rate": 'heart_rate.max',
     'data_points': 'data_points'
 }
+
 
 def pretty_temperature(dictionary, key, value):
     value, sign = value.split()
@@ -74,6 +76,8 @@ class Omer(object):
         self.raw = {}
         self.summary = {}
         self.dives = {}
+        self.content = {}
+
         self.read_file(file_name)
 
         self.parse_summary()
@@ -85,6 +89,13 @@ class Omer(object):
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', encoding='utf16') as f:
             self.raw['content'] = f.readlines()
+
+    def export(self, file_name):
+        #data = copy.deepcopy(self.summary)
+        #data['dives'] = self.dives
+
+        with open(file_name, 'w') as outfile:
+            json.dump(self.content, outfile)
 
     def parse_summary(self):
         pattern = re.compile(ur'\"([^"]+?)\"', re.UNICODE)
@@ -125,6 +136,7 @@ class Omer(object):
                 print "Warning: No key conversion for '%s'" % k
 
         self.summary = summary
+        self.content['summary'] = summary
 
     def parse_dives(self):
         pattern = re.compile(ur'\"([^"]+?)\"', re.UNICODE)
@@ -144,7 +156,7 @@ class Omer(object):
 
         dives = []
         for raw_dive in raw_dives:
-            dive = {}
+            dive = {'summary': {}}
             data_points = []
             for line in raw_dive:
                 m = pattern.findall(line.strip())
@@ -155,9 +167,9 @@ class Omer(object):
                         value = m[1].encode('utf-8')
 
                         if value.isdigit():
-                            dive[str(key)] = int(value)
+                            dive['summary'][str(key)] = int(value)
                         else:
-                            dive[str(key)] = value
+                            dive['summary'][str(key)] = value
 
                     if len(m) == 4:
                         item = m[0].encode('utf-8')
@@ -178,11 +190,11 @@ class Omer(object):
     def pretty_dives(self):
         dives = []
         for raw_dive in self.raw['dives']:
-            dive = {}
-            for k in raw_dive:
+            dive = {'summary': {}}
+            for k in raw_dive['summary']:
                 key = dive_key_conversion.get(k)
                 if key:
-                    value = raw_dive[k]
+                    value = raw_dive['summary'][k]
                     if key.startswith('temperature'):
                         key, value = pretty_temperature(dive, key, value)
                     elif key.startswith('depth'):
@@ -190,10 +202,12 @@ class Omer(object):
                     elif key.startswith('calorie'):
                         key, value = pretty_calorie(dive, key, value)
 
-                    put(dive, key, value)
+                    put(dive['summary'], key, value)
                 else:
                     print "Warning: No key conversion for '%s'" % k
 
+            dive['data_points'] = raw_dive['data_points']
             dives.append(dive)
 
         self.dives = dives
+        self.content['dives'] = dives

@@ -10,8 +10,8 @@ class TestOmer(TestCase):
     example_data = 'omer-up-x1-2015-01-31-eriksdalsbadet-25m.csv'
 
     def setUp(self):
-        base_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/'
-        test_file = os.path.join(base_path, 'data', self.example_data)
+        self.base_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/'
+        test_file = os.path.join(self.base_path, 'data', self.example_data)
         #print test_file
         self.log = Omer(test_file)
 
@@ -38,8 +38,12 @@ class TestOmer(TestCase):
         log = self.log
 
         self.assertTrue(log.raw['dives'])
-        self.assertEqual(1, log.raw['dives'][0][u'Dive'])
+        self.assertEqual(1, log.raw['dives'][0]['summary'][u'Dive'])
         self.assertEqual("0.8", log.raw['dives'][0][u'data_points'][0]['depth'])
 
-        self.assertEqual(73, get(log.dives[0], 'heart_rate.min'))
+        self.assertEqual(73, get(log.dives[0], 'summary.heart_rate.min'))
         self.assertEqual("1.7", get(log.dives[0], 'data_points')[12-1]['depth'])
+
+    def test_export(self):
+        test_export_file = os.path.join(self.base_path, 'data', os.path.splitext(self.example_data)[0] + ".json")
+        self.log.export(test_export_file)
