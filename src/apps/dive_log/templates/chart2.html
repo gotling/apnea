@@ -3,19 +3,16 @@
 </div>
 <script>
   $(function () {
-    var time = [0, 1, 2, 3, 4, 5];
-    var depth = [0.0, 1.1, 1.6, 1.8, 1.9, 1.9];
-    var heart_rate = [76, 76, 76, 77, 78, 78];
+    var time = {{ time }};//[0, 1, 2, 3, 4, 5];
+    var depth = {{ depth }};//[0.0, 1.1, 1.6, 1.8, 1.9, 1.9];
+    var heart_rate = {{ heart_rate }};//[76, 76, 76, 77, 78, 78];
 
     $('#chart').highcharts({
       chart: {
         zoomType: 'xy'
       },
       title: {
-        text: 'Detaljer för dyk #1'
-      },
-      subtitle: {
-        text: 'Total tid: 00:00'
+        text: 'Detaljer för dyk'
       },
       xAxis: [
         {
@@ -31,7 +28,7 @@
             }
           },
           title: {
-            text: 'Heart rate',
+            text: 'Puls',
             style: {
               color: Highcharts.getOptions().colors[1]
             }
@@ -43,7 +40,7 @@
           gridLineWidth: 0,
           reversed: true,
           title: {
-            text: 'Depth',
+            text: 'Djup',
             style: {
               color: Highcharts.getOptions().colors[0]
             }
@@ -71,7 +68,7 @@
       },
       series: [
         {
-          name: 'Depth',
+          name: 'Djup',
           type: 'spline',
           yAxis: 1,
           data: depth,
@@ -81,7 +78,7 @@
 
         },
         {
-          name: 'Heart rate',
+          name: 'Puls',
           type: 'spline',
           data: heart_rate,
           tooltip: {
