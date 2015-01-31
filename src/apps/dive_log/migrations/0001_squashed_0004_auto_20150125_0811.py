@@ -6,7 +6,7 @@ from django.db import models, migrations
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'dive_log', '0001_squashed_0003_auto_20150125_0429'), (b'dive_log', '0002_dive_duration'), (b'dive_log', '0003_auto_20150125_0804'), (b'dive_log', '0004_auto_20150125_0811')]
+    #replaces = [(b'dive_log', '0001_squashed_0003_auto_20150125_0429'), (b'dive_log', '0002_dive_duration'), (b'dive_log', '0003_auto_20150125_0804'), (b'dive_log', '0004_auto_20150125_0811')]
 
     dependencies = [
         ('discipline', '0001_initial'),
