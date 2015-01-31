@@ -54,3 +54,4 @@ docs/_build/
 target/
 .idea
 deploy/templates/db
+db.sqlite3
