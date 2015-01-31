@@ -233,6 +233,7 @@ LOCAL_APPS = (
     'apnea',
     'dive_log',
     'discipline',
+    'parser',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
