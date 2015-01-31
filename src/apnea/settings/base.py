@@ -234,6 +234,7 @@ LOCAL_APPS = (
     'dive_log',
     'discipline',
     'parser',
+    'uploader',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
