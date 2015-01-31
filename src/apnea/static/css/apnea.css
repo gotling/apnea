@@ -2,7 +2,11 @@ tr.dive {
     cursor: pointer;
 }
 
+.modal-dialog {
+    width: 90%;
+}
+
 .modal-content {
     overflow-y: auto;
-    width: 90%;
+    width: 100%;
 }
