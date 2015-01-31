@@ -3,6 +3,7 @@ import os
 from django.test import TestCase
 import time
 from ..omer import Omer
+from parser.dictionary import get
 
 
 class TestOmer(TestCase):
@@ -23,3 +24,12 @@ class TestOmer(TestCase):
         self.assertEqual(u'2015-01-30', log.raw['summary'][u'Date'])
         self.assertEqual(15, log.raw['summary'][u'No. of dives'])
         #self.assertEqual(time.strptime("01:17:59"), log.summary.time.total)
+
+        self.assertEqual(u'01:17:59', get(log.summary, 'time.total'))
+        self.assertEqual(u'00:01:26', get(log.summary, 'time.dive.average'))
+
+        print log.summary
+
+        self.assertEqual(u'celsius', get(log.summary, 'format.temperature'))
+        self.assertEqual(u'meter', get(log.summary, 'format.distance'))
+        self.assertEqual(u'kCal', get(log.summary, 'format.calorie'))
