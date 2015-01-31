@@ -47,8 +47,8 @@ def pretty_temperature(dictionary, key, value):
         sign = 'fahrenheit'
     put(dictionary, 'format.temperature', sign)
 
-    return key, value
 
+    return key, float(value)
 
 def pretty_distance(dictionary, key, value):
     value, sign = value.split()
@@ -59,15 +59,15 @@ def pretty_distance(dictionary, key, value):
         sign = 'yard'
     put(dictionary, 'format.distance', sign)
 
-    return key, value
+    return key, float(value)
 
 
 def pretty_calorie(dictionary, key, value):
     value, sign = value.split()
 
     put(dictionary, 'format.calorie', sign)
+    return key, float(value)
 
-    return key, value
 
 
 class Omer(object):
@@ -180,7 +180,7 @@ class Omer(object):
                         if item == u'Item':
                             continue
 
-                        data_points.append({'item': item, 'depth': depth, 'temp': temp, 'hr': hr})
+                        data_points.append({'item': int(item), 'depth': float(depth), 'temp': float(temp), 'hr': int(hr)})
 
             dive['data_points'] = data_points
             dives.append(dive)

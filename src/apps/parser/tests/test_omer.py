@@ -39,10 +39,10 @@ class TestOmer(TestCase):
 
         self.assertTrue(log.raw['dives'])
         self.assertEqual(1, log.raw['dives'][0]['summary'][u'Dive'])
-        self.assertEqual("0.8", log.raw['dives'][0][u'data_points'][0]['depth'])
+        self.assertEqual(0.8, log.raw['dives'][0][u'data_points'][0]['depth'])
 
         self.assertEqual(73, get(log.dives[0], 'summary.heart_rate.min'))
-        self.assertEqual("1.7", get(log.dives[0], 'data_points')[12-1]['depth'])
+        self.assertEqual(1.7, get(log.dives[0], 'data_points')[12-1]['depth'])
 
     def test_export(self):
         test_export_file = os.path.join(self.base_path, 'data', os.path.splitext(self.example_data)[0] + ".json")
