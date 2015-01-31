@@ -1,10 +1,14 @@
 from django.contrib import admin
 from django.utils.translation import ugettext as _
-from .models import Session, Dive
+from .models import Session, Dive, DataPoint
 
 
 class DiveInline(admin.TabularInline):
     model = Dive
+
+
+class DataPointInline(admin.TabularInline):
+    model = DataPoint
 
 
 class SessionAdmin(admin.ModelAdmin):
@@ -21,7 +25,13 @@ class SessionAdmin(admin.ModelAdmin):
 class DiveAdmin(admin.ModelAdmin):
     list_display = ('session', )
 
+    inlines = [DataPointInline]
+
+
+class DataPointAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', )
 
 admin.site.register(Session, SessionAdmin)
 admin.site.register(Dive, DiveAdmin)
+admin.site.register(DataPoint, DataPointAdmin)
 

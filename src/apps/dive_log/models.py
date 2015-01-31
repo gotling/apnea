@@ -10,7 +10,6 @@ class Session(models.Model):
     time = models.TimeField(verbose_name=_(u'Tid'))
     comment = models.CharField(verbose_name=_(u'Kommentar'), max_length=512, blank=True)
 
-
     class Meta:
         verbose_name = _(u'Session')
         verbose_name_plural = _(u'Sessioner')
@@ -38,3 +37,18 @@ class Dive(models.Model):
 
     def __unicode__(self):
         return u' - '.join([self.discipline.abbreviation, str(self.distance)])
+
+
+class DataPoint(models.Model):
+    dive = models.ForeignKey(Dive)
+    second = models.IntegerField(verbose_name=_(u'Sekund'))
+    depth = models.DecimalField(verbose_name=_(u'Djup'), decimal_places=1, max_digits=4, null=True, blank=True)
+    temperature = models.DecimalField(verbose_name=_(u'Temperatur'), decimal_places=1, max_digits=3, null=True, blank=True)
+    heart_rate = models.IntegerField(verbose_name=_(u'Puls'), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _(u'Datapunkt')
+        verbose_name_plural = _(u'Datapunkter')
+
+    def __unicode__(self):
+        return u'{} - {} m - {} C - {} slag/minut'
