@@ -38,34 +38,39 @@ dive_key_conversion = {
 }
 
 
-def pretty_temperature(dictionary, key, value):
+def pretty_temperature(key, value, dictionary=False):
     value, sign = value.split()
 
-    if sign[-1:] == 'C':
-        sign = 'celsius'
-    else:
-        sign = 'fahrenheit'
-    put(dictionary, 'format.temperature', sign)
+    if dictionary:
+        if sign[-1:] == 'C':
+            sign = 'celsius'
+        else:
+            sign = 'fahrenheit'
 
-
-    return key, float(value)
-
-def pretty_distance(dictionary, key, value):
-    value, sign = value.split()
-
-    if sign[-1:] == 'm':
-        sign = 'meter'
-    else:
-        sign = 'yard'
-    put(dictionary, 'format.distance', sign)
+        put(dictionary, 'format.temperature', sign)
 
     return key, float(value)
 
 
-def pretty_calorie(dictionary, key, value):
+def pretty_distance(key, value, dictionary=False):
     value, sign = value.split()
 
-    put(dictionary, 'format.calorie', sign)
+    if dictionary:
+        if sign[-1:] == 'm':
+            sign = 'meter'
+        else:
+            sign = 'yard'
+        put(dictionary, 'format.distance', sign)
+
+    return key, float(value)
+
+
+def pretty_calorie(key, value, dictionary=False):
+    value, sign = value.split()
+
+    if dictionary:
+        put(dictionary, 'format.calorie', sign)
+
     return key, float(value)
 
 
@@ -125,11 +130,11 @@ class Omer(object):
             if key:
                 value = self.raw['summary'][k]
                 if key.startswith('temperature'):
-                    key, value = pretty_temperature(summary, key, value)
+                    key, value = pretty_temperature(key, value, dictionary=summary)
                 elif key.startswith('depth'):
-                    key, value = pretty_distance(summary, key, value)
+                    key, value = pretty_distance(key, value, dictionary=summary)
                 elif key.startswith('calorie'):
-                    key, value = pretty_calorie(summary, key, value)
+                    key, value = pretty_calorie(key, value, dictionary=summary)
 
                 put(summary, key, value)
             else:
@@ -196,11 +201,11 @@ class Omer(object):
                 if key:
                     value = raw_dive['summary'][k]
                     if key.startswith('temperature'):
-                        key, value = pretty_temperature(dive, key, value)
+                        key, value = pretty_temperature(key, value)
                     elif key.startswith('depth'):
-                        key, value = pretty_distance(dive, key, value)
+                        key, value = pretty_distance(key, value)
                     elif key.startswith('calorie'):
-                        key, value = pretty_calorie(dive, key, value)
+                        key, value = pretty_calorie(key, value)
 
                     put(dive['summary'], key, value)
                 else:
