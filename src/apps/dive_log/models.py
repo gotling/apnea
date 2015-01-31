@@ -36,7 +36,10 @@ class Dive(models.Model):
         verbose_name_plural = _(u'Dyk')
 
     def __unicode__(self):
-        return u' - '.join([self.discipline.abbreviation, str(self.distance)])
+        if self.discipline:
+            return "{} - {}".format(self.discipline.abbreviation, str(self.dive_duration))
+        else:
+            return str(self.dive_duration)
 
 
 class DataPoint(models.Model):
