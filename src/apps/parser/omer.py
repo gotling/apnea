@@ -1,5 +1,4 @@
 # coding: utf-8
-import copy
 import json
 import re
 import codecs
@@ -96,11 +95,8 @@ class Omer(object):
             self.raw['content'] = f.readlines()
 
     def export(self, file_name):
-        #data = copy.deepcopy(self.summary)
-        #data['dives'] = self.dives
-
         with open(file_name, 'w') as outfile:
-            json.dump(self.content, outfile)
+            json.dump(self.content, outfile, sort_keys=False, indent=4)
 
     def parse_summary(self):
         pattern = re.compile(ur'\"([^"]+?)\"', re.UNICODE)
