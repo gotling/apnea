@@ -1,7 +1,6 @@
 import inspect
 import os
 from django.test import TestCase
-import time
 from ..omer import Omer
 from parser.dictionary import get
 
