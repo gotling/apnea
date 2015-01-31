@@ -18,4 +18,5 @@ def details(request, dive_id):
         'dive': dive
     }
 
-    return render(request, 'details.html', context)
+    return render(request, 'chart2.html', context)
+    #return render(request, 'details.html', context)

@@ -3,6 +3,16 @@
 }
 
 .modal-content {
-    overflow-y: auto;
-    width: 100%;
+    padding: 30px;
 }
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+canvas {
+    width: 100% !important;
+    max-width: 800px;
+    height: auto !important;
+}
+

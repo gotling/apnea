@@ -1,0 +1,94 @@
+<div style="position:relative;">
+  <div id="chart" style="width:85%; height:400px;"></div>
+</div>
+<script>
+  $(function () {
+    var time = [0, 1, 2, 3, 4, 5];
+    var depth = [0.0, 1.1, 1.6, 1.8, 1.9, 1.9];
+    var heart_rate = [76, 76, 76, 77, 78, 78];
+
+    $('#chart').highcharts({
+      chart: {
+        zoomType: 'xy'
+      },
+      title: {
+        text: 'Detaljer för dyk #1'
+      },
+      subtitle: {
+        text: 'Total tid: 00:00'
+      },
+      xAxis: [
+        {
+          categories: time
+        }
+      ],
+      yAxis: [
+        { // Heart rate
+          labels: {
+            format: '{value} bpm',
+            style: {
+              color: Highcharts.getOptions().colors[1]
+            }
+          },
+          title: {
+            text: 'Heart rate',
+            style: {
+              color: Highcharts.getOptions().colors[1]
+            }
+          },
+          opposite: true
+
+        },
+        { // Depth
+          gridLineWidth: 0,
+          reversed: true,
+          title: {
+            text: 'Depth',
+            style: {
+              color: Highcharts.getOptions().colors[0]
+            }
+          },
+          labels: {
+            format: '{value} m',
+            style: {
+              color: Highcharts.getOptions().colors[0]
+            }
+          }
+
+        }
+      ],
+      tooltip: {
+        shared: true
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'left',
+        x: 120,
+        verticalAlign: 'top',
+        y: 80,
+        floating: true,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+      },
+      series: [
+        {
+          name: 'Depth',
+          type: 'spline',
+          yAxis: 1,
+          data: depth,
+          tooltip: {
+            valueSuffix: ' m'
+          }
+
+        },
+        {
+          name: 'Heart rate',
+          type: 'spline',
+          data: heart_rate,
+          tooltip: {
+            valueSuffix: ' bpm'
+          }
+        }
+      ]
+    });
+  });
+</script>
