@@ -28,8 +28,15 @@ class TestOmer(TestCase):
         self.assertEqual(u'01:17:59', get(log.summary, 'time.total'))
         self.assertEqual(u'00:01:26', get(log.summary, 'time.dive.average'))
 
-        print log.summary
+        #print log.summary
 
         self.assertEqual(u'celsius', get(log.summary, 'format.temperature'))
         self.assertEqual(u'meter', get(log.summary, 'format.distance'))
         self.assertEqual(u'kCal', get(log.summary, 'format.calorie'))
+
+    def test_dive(self):
+        log = self.log
+
+        self.assertTrue(log.raw['dives'])
+        self.assertEqual(1, log.raw['dives'][0][u'Dive'])
+        self.assertEqual("0.8", log.raw['dives'][0][u'data-points'][0]['depth'])

@@ -53,15 +53,18 @@ def pretty_calorie(dictionary, key, value):
 
     return key, value
 
+
 class Omer(object):
     def __init__(self, file_name):
         self.file_name = file_name
-        self.content = {}
         self.raw = {}
         self.summary = {}
         self.read_file(file_name)
+
         self.parse_summary()
         self.pretty_summary()
+
+        self.parse_dives()
 
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', encoding='utf16') as f:
@@ -106,3 +109,54 @@ class Omer(object):
                 print "Warning: No key conversion for '%s'" % k
 
         self.summary = summary
+
+    def parse_dives(self):
+        pattern = re.compile(ur'\"([^"]+?)\"', re.UNICODE)
+        raw_dives = []
+
+        #print self.raw['content']
+        dive_count = get(self.summary, 'dive.count')
+
+        for number in range(1, dive_count + 1):
+            start = self.raw['content'].index(u'"Dive"\t"{}"\n'.format(number))
+            if number < dive_count:
+                stop = self.raw['content'].index(u'"Dive"\t"{}"\n'.format(number + 1))
+            else:
+                 stop = None
+
+            raw_dives.append(self.raw['content'][start:stop])
+
+        print len(raw_dives)
+
+        dives = []
+        for raw_dive in raw_dives:
+            dive = {}
+            data_points = []
+            for line in raw_dive:
+                m = pattern.findall(line.strip())
+
+                if m:
+                    if len(m) == 2:
+                        key = m[0].encode('utf-8')
+                        value = m[1].encode('utf-8')
+
+                        if value.isdigit():
+                            dive[str(key)] = int(value)
+                        else:
+                            dive[str(key)] = value
+
+                    if len(m) == 4:
+                        item = m[0].encode('utf-8')
+                        depth = m[1].encode('utf-8')
+                        temp = m[2].encode('utf-8')
+                        hr = m[3].encode('utf-8')
+
+                        if item == u'Item':
+                            continue
+
+                        data_points.append({'item': item, 'depth': depth, 'temp': temp, 'hr': hr})
+
+            dive['data-points'] = data_points
+            dives.append(dive)
+
+        self.raw['dives'] = dives
