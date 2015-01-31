@@ -8,8 +8,11 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 		<link href='//fonts.googleapis.com/css?family=Raleway:400,500' rel='stylesheet' type='text/css'>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="static/css/apnea.css" rel="stylesheet">
 
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="static/js/apnea.js"></script>
 	</head>
 	<body>
       <div class="container-fluid">
@@ -31,19 +34,30 @@
           </thead>
           <tbody>
           {% for dive in session.dive_set.all %}
-            <tr>
+            <tr class="dive">
               <th>{{ forloop.counter }}</th>
               <th>{{ dive.discipline.abbreviation }}</th>
               <td>{{ dive.start }}</td>
               <td>{{ dive.rest_duration }}</td>
               <td>{{ dive.dive_duration }}</td>
               <td>{{ dive.distance }}</td>
-              <td>{{ dive.comment }}</td>
+              <td>{{ dive.comment }}{{ dive.data_points }}</td>
+              <td><a data-toggle="modal" class="modal-link" href="details/{{ dive.id }}" data-target="#main-modal">Detaljer</a></td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
       {% endfor %}
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-2x"></i><span class="sr-only">Stäng</span></button>
+                  <div class="">
+                  </div>
+              </div>
+          </div>
       </div>
     </body>
 </html>

@@ -1,0 +1,8 @@
+tr.dive {
+    cursor: pointer;
+}
+
+.modal-content {
+    overflow-y: auto;
+    width: 90%;
+}

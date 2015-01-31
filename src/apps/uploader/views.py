@@ -37,7 +37,7 @@ def upload(request):
         for point in get(dive_entry, 'data_points'):
             data_point = DataPoint()
             data_point.dive = dive
-            data_point.second = get(point, 'item')
+            data_point.second = get(point, 'item') - 1
             data_point.depth = get(point, 'depth')
             data_point.temperature = get(point, 'temp')
             data_point.heart_rate = get(point, 'hr')

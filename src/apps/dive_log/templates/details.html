@@ -1,0 +1,31 @@
+<div>
+<h2>Detaljer för dyk</h2>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Sekund</th>
+      {% for point in dive.datapoint_set.all %}
+      <td>{{ point.second }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <th>Djup</th>
+      {% for point in dive.datapoint_set.all %}
+      <td>{{ point.depth }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <th>Temperatur</th>
+      {% for point in dive.datapoint_set.all %}
+      <td>{{ point.temperature }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <th>Puls</th>
+      {% for point in dive.datapoint_set.all %}
+      <td>{{ point.heart_rate }}</td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+</div>
