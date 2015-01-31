@@ -56,4 +56,4 @@ class DataPoint(models.Model):
         ordering = ['second']
 
     def __unicode__(self):
-        return u'{} - {} m - {} C - {} slag/minut'
+        return u'{} - {} m'.format(self.second, self.depth)
