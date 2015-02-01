@@ -14,9 +14,9 @@ Installation
 
 ### Steps
 
-    git clone -b develop https://github.com/Headweb/flow-search.git
-    cd flow-search
-    mkvirtualenv flow-search
+    git clone -b develop https://github.com/GotlingSystem/apnea.git
+    cd apnea
+    mkvirtualenv apnea
     pip install -r requirements.txt
     ./manage.py migrate
     ./manage.py createsuperuser
