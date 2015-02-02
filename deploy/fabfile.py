@@ -9,9 +9,9 @@ def setup():
     """
     Full application setup from scratch
     """
-    from blues import app, postgresql, memcached, uwsgi, nginx
+    from blues import app, postgres, memcached, uwsgi, nginx
 
-    postgresql.setup()
+    postgres.setup()
     memcached.setup()
     app.setup()
     uwsgi.setup()
