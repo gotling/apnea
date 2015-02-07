@@ -10,7 +10,7 @@ from parser.dictionary import get, put
 
 
 def upload(request):
-    example_data = 'omer-up-x1-2015-01-31-eriksdalsbadet-25m.csv'
+    example_data = 'omer-up-x1-2015-02-04-eriksdalsbadet-25m.csv'
     base_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/'
     test_file = os.path.join(base_path, '../parser/tests/data', example_data)
     omer = Omer(test_file)
