@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .models import Session, Dive, DataPoint
 
 
-def list_sessions(request):
-    sessions = Session.objects.all()
+def list_sessions(request, username):
+    sessions = Session.objects.filter(user__username=username)
     context = {
         'sessions': sessions
     }
