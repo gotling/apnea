@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext as _
 from discipline.models import Discipline
@@ -6,6 +7,7 @@ from discipline.models import Discipline
 
 class Session(models.Model):
     #pool = models.ForeignKey(Pool)
+    user = models.ForeignKey(User)
     date = models.DateField(verbose_name=_(u'Datum'))
     time = models.TimeField(verbose_name=_(u'Tid'))
     comment = models.CharField(verbose_name=_(u'Kommentar'), max_length=512, blank=True)
