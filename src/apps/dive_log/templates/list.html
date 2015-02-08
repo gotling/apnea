@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="sv-SE">
-	<head>
-		<title>Dyklog - Lista</title>
-		<meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+{% extends 'site_base.html' %}
+{% block head_title %}
+  Lista
+{% endblock %}
 
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-		<link href='//fonts.googleapis.com/css?family=Raleway:400,500' rel='stylesheet' type='text/css'>
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="static/css/apnea.css" rel="stylesheet">
+{% block extra_style %}
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,500' rel='stylesheet' type='text/css'>
+  <link href="static/css/apnea.css" rel="stylesheet">
+{% endblock %}
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <!--<script src="static/js/Chart.min.js"></script>-->
-        <script src="http://code.highcharts.com/highcharts.js"></script>
-        <script src="static/js/apnea.js"></script>
-	</head>
-	<body>
-      <div class="container-fluid">
+{% block extra_script %}
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="static/js/apnea.js"></script>
+{% endblock %}
+
+{% block body %}
         <h1>Dyklog</h1>
       {% for session in sessions %}
         <h2>{{ session.date }} {{ session.time }}</h2>
@@ -50,7 +46,6 @@
           </tbody>
         </table>
       {% endfor %}
-      </div>
       <!-- Modal -->
       <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -61,5 +56,4 @@
               </div>
           </div>
       </div>
-    </body>
-</html>
+{% endblock %}
