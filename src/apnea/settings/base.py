@@ -103,6 +103,8 @@ USE_THOUSAND_SEPARATOR = False
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 
+TIME_FORMAT = '%H:%M'
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#languages
 from django.utils.translation import ugettext_lazy as _
 LANGUAGES = (

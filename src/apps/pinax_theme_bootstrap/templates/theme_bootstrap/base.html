@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% comment %}{% load url from future %}{% endcomment %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="sv-SE">
     <head>
         <meta charset="utf-8" />
         <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
@@ -39,7 +39,7 @@
                                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                     <span class="fa fa-bars"></span>
                                 </button>
-                                {% block site_brand %}<a class="navbar-brand" href="/">{{ SITE_NAME }}</a>{% endblock %}
+                                {% block site_brand %}<a class="navbar-brand" href="/">Apnea</a>{% endblock %}
                             </div>
                             <div class="collapse navbar-collapse navbar-responsive-collapse">
                                 {% block nav %}
