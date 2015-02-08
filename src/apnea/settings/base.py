@@ -182,6 +182,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "account.middleware.LocaleMiddleware",
+    "account.middleware.TimezoneMiddleware",
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -193,6 +195,13 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
     )),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "account.context_processors.account",
+    "django.core.context_processors.request",
+    "pinax_theme_bootstrap.context_processors.theme"
 )
 ########## END TEMPLATE CONFIGURATION
 
@@ -226,6 +235,7 @@ THIRD_PARTY_APPS = (
     #'requests',
     #'compressor',
     'taggit',
+    'account'
 )
 
 # Apps specific for this project go here.
@@ -235,6 +245,8 @@ LOCAL_APPS = (
     'discipline',
     'parser',
     'uploader',
+    'bootstrapform',
+    'pinax_theme_bootstrap',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -319,3 +331,8 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 ########## END WSGI CONFIGURATION
+
+########## ACCOUNT CONFIGURATION
+ACCOUNT_EMAIL_UNIQUE = True
+#ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+########## END ACCOUNT CONFIGURATION
