@@ -3,11 +3,15 @@ from django.contrib import admin
 
 from dive_log import urls as dive_log_urls
 from uploader import urls as uploader_urls
+from views import home
 
 
 urlpatterns = patterns('',
+    # Home
+    url(r'^$', home, name='home'),
+
     # Dive log
-    url(r'^/?', include(dive_log_urls), name='home'),
+    url(r'^/?', include(dive_log_urls)),
 
     # Upload
     url(r'^upload/?', include(uploader_urls)),

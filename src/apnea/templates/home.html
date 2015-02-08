@@ -1,0 +1,14 @@
+{% extends 'site_base.html' %}
+
+{% block head_title %}Hem{% endblock %}
+
+{% block body %}
+  <h1>Apnea dyklogg</h1>
+
+  <h2>Aktiva användare</h2>
+  <ul>
+  {% for user in users %}
+    <li><a href="{{ user.username }}">{{ user.username }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}
