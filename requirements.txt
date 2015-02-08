@@ -1,4 +1,8 @@
 Django==1.8a1
+django-appconf==0.6
 django-taggit==0.12.2
+django-user-accounts==1.0.1
+python-memcached==1.53
+pytz==2014.10
+six==1.9.0
 wsgiref==0.1.2
-psycopg2==2.5.4
