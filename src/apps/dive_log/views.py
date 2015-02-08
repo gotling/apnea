@@ -25,4 +25,4 @@ def details(request, dive_id):
         'heart_rate': [hr for hr in heart_rate]
     }
 
-    return render(request, 'chart2.html', context)
+    return render(request, 'chart.html', context)
