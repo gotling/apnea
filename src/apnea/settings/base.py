@@ -48,7 +48,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-from
-DEFAULT_FROM_EMAIL = 'noreply@apnea.gosy.se/'
+DEFAULT_FROM_EMAIL = 'noreply@apnea.gosy.se'
 SUPPORT_EMAIL = 'marcus@gotling.se'
 ########## END EMAIL CONFIGURATION
 
