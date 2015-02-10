@@ -14,46 +14,49 @@
 {% endblock %}
 
 {% block body %}
-        <h1>Dyklog</h1>
-      {% for session in sessions %}
-        <h2>{{ session.date }} {{ session.time }}</h2>
-        <p>{{ session.comment }}</p>
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Discipline</th>
-              <th>Start</th>
-              <th>Vila</th>
-              <th>Dyktid</th>
-              <th>Distans</th>
-              <th>Kommentar</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for dive in session.dive_set.all %}
-            <tr class="dive">
-              <th>{{ forloop.counter }}</th>
-              <th>{{ dive.discipline.abbreviation }}</th>
-              <td>{{ dive.start }}</td>
-              <td>{{ dive.rest_duration }}</td>
-              <td>{{ dive.dive_duration }}</td>
-              <td>{{ dive.distance }}</td>
-              <td>{{ dive.comment }}{{ dive.data_points }}</td>
-              <td>{% if dive.datapoint_set.count > 0 %}<a data-toggle="modal" class="modal-link" href="details/{{ dive.id }}" data-target="#main-modal">Detaljer</a>{% endif %}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
+  <h1>Dyklog</h1>
+  {% for session in sessions %}
+    <h2>{{ session.date }} {{ session.time }}</h2>
+    <p>{{ session.comment }}</p>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Discipline</th>
+        <th>Start</th>
+        <th>Vila</th>
+        <th>Dyktid</th>
+        <th>Distans</th>
+        <th>Kommentar</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for dive in session.dive_set.all %}
+        <tr class="dive">
+          <th>{{ forloop.counter }}</th>
+          <th>{{ dive.discipline.abbreviation }}</th>
+          <td>{{ dive.start }}</td>
+          <td>{{ dive.rest_duration }}</td>
+          <td>{{ dive.dive_duration }}</td>
+          <td>{{ dive.distance }}</td>
+          <td>{{ dive.comment }}{{ dive.data_points }}</td>
+          <td>{% if dive.datapoint_set.count > 0 %}
+            <a data-toggle="modal" class="modal-link" href="details/{{ dive.id }}" data-target="#main-modal">Detaljer
+            </a>{% endif %}</td>
+        </tr>
       {% endfor %}
-      <!-- Modal -->
-      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-2x"></i><span class="sr-only">Stäng</span></button>
-                  <div class="">
-                  </div>
-              </div>
-          </div>
+      </tbody>
+    </table>
+  {% endfor %}
+  <!-- Modal -->
+  <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-2x"></i><span class="sr-only">Stäng</span>
+        </button>
+        <div class="">
+        </div>
       </div>
+    </div>
+  </div>
 {% endblock %}
