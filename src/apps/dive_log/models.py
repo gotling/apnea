@@ -15,7 +15,7 @@ class Session(models.Model):
     class Meta:
         verbose_name = _(u'Session')
         verbose_name_plural = _(u'Sessioner')
-        ordering = ['date', 'time']
+        ordering = ['-date', '-time']
 
     def __unicode__(self):
         return "{} {}".format(self.date, self.time)
