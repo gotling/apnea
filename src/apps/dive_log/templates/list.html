@@ -14,7 +14,14 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Dyklog</h1>
+  <div class="row">
+    <div class="col-xs-6"><h1>Dyklog</h1></div>
+    <div class="col-xs-6 text-right">
+      {% if user.is_authenticated and user.username == username %}
+      <a href="{% url 'upload' %}" class="btn btn-primary" role="button">Lägg till</a>
+      {% endif %}
+    </div>
+  </div>
   {% for session in sessions %}
     <h2>{{ session.date }} {{ session.time }}</h2>
     <p>{{ session.comment }}</p>

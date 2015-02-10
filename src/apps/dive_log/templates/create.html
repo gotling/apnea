@@ -1,0 +1,17 @@
+{% extends 'site_base.html' %}
+{% block head_title %}
+  Lista
+{% endblock %}
+
+{% block body %}
+  <h1>Skapa</h1>
+  <h2>Ladda upp</h2>
+
+  <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+    {{ form }}
+    </div>
+    <input type="submit" value="Ladda upp" class="btn btn-primary">
+  </form>
+{% endblock %}

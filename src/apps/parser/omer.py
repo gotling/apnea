@@ -73,16 +73,15 @@ def pretty_calorie(key, value, dictionary=False):
     return key, float(value)
 
 
-
 class Omer(object):
-    def __init__(self, file_name):
-        self.file_name = file_name
+    def __init__(self):
         self.raw = {}
         self.summary = {}
         self.dives = {}
         self.content = {}
 
-        self.read_file(file_name)
+    def parse(self):
+        assert 'content' in self.raw
 
         self.parse_summary()
         self.pretty_summary()
@@ -93,8 +92,15 @@ class Omer(object):
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', encoding='utf16') as f:
             self.raw['content'] = f.readlines()
+        self.parse()
+
+    def read_stream(self, s):
+        self.raw['content'] = s.getvalue().split('\n')
+        self.parse()
 
     def export(self, file_name):
+        assert self.content
+
         with open(file_name, 'w') as outfile:
             json.dump(self.content, outfile, sort_keys=False, indent=4)
 
@@ -147,9 +153,9 @@ class Omer(object):
         dive_count = get(self.summary, 'dive.count')
 
         for number in range(1, dive_count + 1):
-            start = self.raw['content'].index(u'"Dive"\t"{}"\n'.format(number))
+            start = self.raw['content'].index(u'"Dive"\t"{}"'.format(number))
             if number < dive_count:
-                stop = self.raw['content'].index(u'"Dive"\t"{}"\n'.format(number + 1))
+                stop = self.raw['content'].index(u'"Dive"\t"{}"'.format(number + 1))
             else:
                 stop = None
 
