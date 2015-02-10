@@ -230,6 +230,7 @@ DJANGO_APPS = (
     'django.contrib.admin',
     # 'django.contrib.admindocs',
     #'debug_toolbar',
+    'django.contrib.sites',
 )
 
 THIRD_PARTY_APPS = (
